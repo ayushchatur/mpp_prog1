@@ -16,7 +16,7 @@ import mutex.ThreadID;
  */
 public class BakeryTest {
   private final static int THREADS = 16;
-  private final static int COUNT = 1024;
+  private final static int COUNT = 1024 * 1024;
   private final static int PER_THREAD = COUNT / THREADS;
   Thread[] thread = new MyThread[THREADS];
   int counter = 0;
