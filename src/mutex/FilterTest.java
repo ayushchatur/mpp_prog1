@@ -17,9 +17,9 @@ import java.util.concurrent.locks.Lock;
 public class FilterTest {
     // default 4 threads 
   private  int THREADS = 4;
-  private final  int COUNT = 1024 * 1024;
-  private final  int PER_THREAD = COUNT / THREADS;
-  Thread[] thread = new Thread[THREADS];
+  private   int COUNT = 1024 ;
+  private   int PER_THREAD = 0;
+  Thread[] thread = null ;
   int counter = 0;
   
   Lock instance = new Filter(THREADS);
@@ -29,6 +29,7 @@ public class FilterTest {
         if(threads > 0)
         {    this.THREADS= threads;
          thread = new MyThread[this.THREADS];
+         this.PER_THREAD = COUNT / this.THREADS;
         }
         
     
@@ -43,7 +44,10 @@ public class FilterTest {
         }
   }
   
-
+  public void reset_counter()
+  {
+      this.counter = 0;
+  }
   
   public boolean testParallel() throws Exception {
     ThreadID.reset();
@@ -57,6 +61,7 @@ public class FilterTest {
       thread[i].join();
     }
     
+    System.out.println(counter);
     return (counter == COUNT);
     
   }

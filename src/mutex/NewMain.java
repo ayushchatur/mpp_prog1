@@ -23,6 +23,8 @@ public class NewMain {
         int algo = 1 ;
         int Nthreads = 4;
         int typeoftest = 1;
+        int iterations = 1;
+        int success=0;
          
         if (args.length < 3)
         {
@@ -36,14 +38,15 @@ public class NewMain {
             algo = Integer.parseInt(args[0]);
             Nthreads = Integer.parseInt(args[1]);
             typeoftest = Integer.parseInt(args[2]);
+            iterations = Integer.parseInt(args[3]);
             }
             catch (Exception ex)
             {
                 System.err.println("Error parsing arguments please provide them correctly defaulting to 1 (algo choice),4 threads ,1 type of test");
             }
         }
-           BakeryTest bake = new BakeryTest(Nthreads, true);
-           FilterTest filter  = new FilterTest(Nthreads, true);
+           BakeryTest bake = null;
+           FilterTest filter  = null;
            boolean result ;
            
           /***         
@@ -52,32 +55,44 @@ public class NewMain {
                 3   Filter via Custom Lock
                 4   Filter via Java Concurrent Lock
           ***/
+          
+        System.out.format("Initating choice : %d with %d threads and %d iterations\n", algo,Nthreads,iterations);
+        
         switch (algo)
                 {
+            
+          
             case 1: 
                 // true, implies to use our lock implmentation 
                 bake = new BakeryTest(Nthreads, true);
-                result = bake.testParallel_custom();
+                for ( int j = 0; j < iterations ; j++)
+                {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); bake.reset_counter();}
                 break;
             case 2: 
                 bake = new BakeryTest(Nthreads, false);
-                result = bake.testParallel_custom();
+                 for ( int j = 0; j < iterations ; j++)
+                {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}
                 break;
             case 3: 
                                 // true, implies to use our lock implmentation 
                 filter = new FilterTest(Nthreads, true);
-                result = filter.testParallel();
+                 for ( int j = 0; j < iterations ; j++)
+                {result = filter.testParallel(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); filter.reset_counter();}
+//                result = filter.testParallel();
                 break;
             case 4: 
                 filter = new FilterTest(Nthreads, false);
-                result = filter.testParallel();
+                 for ( int j = 0; j < iterations ; j++)
+                {result = filter.testParallel(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}
+
                 break;
             default : 
                 bake = new BakeryTest(Nthreads, true);
-                result = bake.testParallel_custom();             
-        }
-            System.out.println("result we got is: " + result);
-           }
+                 for ( int j = 0; j < iterations ; j++)
+                    {result = bake.testParallel_custom(); if (result) success++;System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}           
+                }
+            System.out.println("Passed " + success +" iterations out of: " + iterations);
+         }  
          catch(Exception ex)
          {
             System.err.println("Error executing: " + ex.getMessage());

@@ -17,9 +17,9 @@ import java.util.concurrent.locks.Lock;
 public class BakeryTest{
     // default 4 threads 
   private  int THREADS = 4;
-  private final  int COUNT = 1024 * 1024;
-  private final  int PER_THREAD = COUNT / THREADS;
-  Thread[] thread = new MyThread[THREADS];
+  private   int COUNT = 1024 *1024;
+  private   int PER_THREAD = COUNT / THREADS;
+  Thread[] thread = null;
   int counter = 0;
   private int algo = 0;
   
@@ -31,6 +31,7 @@ public class BakeryTest{
         { this.THREADS= threads;
             
         thread = new MyThread[this.THREADS];
+        this.PER_THREAD = COUNT / this.THREADS;
         }
     
         // our_algo = true imples custom implementation of lock 
@@ -65,6 +66,11 @@ public class BakeryTest{
       
   }
   
+  public void reset_counter() 
+  {
+      this.counter = 0;
+  }
+  
   class MyThread extends Thread {
     public void run() {
       for (int i = 0; i < PER_THREAD; i++) {
@@ -78,7 +84,7 @@ public class BakeryTest{
           instance.unlock();
         }
         long timeF = System.nanoTime();
-          System.out.println("time take by thread id: " + this.getName() + " is: " + (timeF - timS));
+//          System.out.println("time(ns) take by thread id: " + this.getName() + " is: " + (timeF - timS));
       }
     }
   }
