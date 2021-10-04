@@ -41,23 +41,45 @@ class Bakery implements Lock {
       int i = ThreadID.get();
       flag[i] = true;
       
-      int p =-1;
-      for ( int j=0;j<N;j++)
-          p = Math.max(p,label[j]);
-      label[i] = p +1;
+      // int p =-1;
+      // for ( int j=0;j<N;j++)
+          // p = Math.max(p,label[j]);
+
+      label[i]  = findMaximumElement(label) + 1;
+      // label[i] = p +1;
+      System.out.println("Thread: " + i + " max: " + label[i]);
       
-      
+      System.out.println("Thread: " + i + " entering...");
       for ( int k =0; k< N ; k ++)
       {
-          while( k != i && flag[k] && 
-                  ((label[i] < label[k]) || 
-                  ((label[i] == label[k]) && (i < k)) )
-                  )
-                  {
-                      // spin wait
-                  }
+          // while( (k != i) && flag[k] && 
+          //         ((label[k] < label[i]) || 
+          //         ((label[i] == label[k]) && (k < i)) )
+          //         )
+          //         {
+          //             // spin wait
+                      
+          //         }
+
+                   while ((k != i) && flag[k] == true && ((label[k] < label[i]) || ((label[k] == label[i]) && k < i))) {
+                    //  System.out.println( i + " in wait");
+                //spin wait
+            }
       }
-  } 
+
+      System.out.println("Thread: " + i + " got lock");
+  }
+
+  private int findMaximumElement(int[] elementArray) {
+        int maxValue = Integer.MIN_VALUE;
+        for (int element : elementArray) {
+            if (element > maxValue) {
+                maxValue = element;
+            }
+        }
+        return maxValue;
+    }
+
   public void unlock() {
   
         flag[ThreadID.get()] = false;

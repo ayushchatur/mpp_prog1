@@ -16,9 +16,9 @@ import java.util.concurrent.locks.Lock;
  */
 public class BakeryTest{
     // default 4 threads 
-  private  int THREADS = 4;
-  private   int COUNT = 1024 * 128;
-  private   int PER_THREAD = COUNT / THREADS;
+  private  int THREADS;
+  private   int COUNT = 1024;
+  private   int PER_THREAD ;
   Thread[] thread = null;
   int counter = 0;
   private int algo = 0;
@@ -26,12 +26,15 @@ public class BakeryTest{
   Lock instance ;
     BakeryTest(int threads, boolean our_algo)
     {
+        System.out.println("object b created");
         // Check of non negative since java dont have unsigned
         if(threads > 0)
         { this.THREADS= threads;
             
         thread = new MyThread[this.THREADS];
-        this.PER_THREAD = COUNT / this.THREADS;
+        this.COUNT = threads * COUNT;
+
+        this.PER_THREAD = (COUNT / this.THREADS);
         }
     
         // our_algo = true imples custom implementation of lock 
@@ -48,15 +51,15 @@ public class BakeryTest{
   
   public boolean testParallel_custom() throws Exception {
     ThreadID.reset();
-    for (int i = 0; i < THREADS; i++) {
+    for (int i = 0; i < this.THREADS; i++) {
       thread[i] = new MyThread();
       StringBuilder s = new StringBuilder().append(i);
       thread[i].setName(s.toString());
     }
-    for (int i = 0; i < THREADS; i++) {
+    for (int i = 0; i < this.THREADS; i++) {
       thread[i].start();
     }
-    for (int i = 0; i < THREADS; i++) {
+    for (int i = 0; i < this.THREADS; i++) {
       thread[i].join();
     }
       System.out.println(counter);

@@ -31,6 +31,7 @@ class Filter implements Lock {
       this.victim = new int[N];
         for (int i = 0; i < N; i++) {
             this.victim[i] = 0;
+            this.flags[i] = 0;
         }
       
   }
@@ -40,6 +41,14 @@ class Filter implements Lock {
           
           this.flags[id] = i;
           this.victim[i]  =  id;
+
+          for( int p=0;p<this.N;p++)
+          {
+            while( (p !=id ) && (victim[p] >= i && victim[i] == id))
+            {
+              //spin wait
+            } 
+          }
           
       }
    
