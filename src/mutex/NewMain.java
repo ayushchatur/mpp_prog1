@@ -64,22 +64,28 @@ public class NewMain {
             case 1: 
                 // true, implies to use our lock implmentation 
                 bake = new BakeryTest(Nthreads, true);
+                System.out.println("Running bakery algo with custom lock");
                 for ( int j = 0; j < iterations ; j++)
                 {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); bake.reset_counter();}
                 break;
             case 2: 
+               System.out.println("Running bakery algo with Java lock");
+
                 bake = new BakeryTest(Nthreads, false);
                  for ( int j = 0; j < iterations ; j++)
                 {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}
                 break;
             case 3: 
                                 // true, implies to use our lock implmentation 
+                System.out.println("Running Filter algo with custom lock");
+
                 filter = new FilterTest(Nthreads, true);
                  for ( int j = 0; j < iterations ; j++)
                 {result = filter.testParallel(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); filter.reset_counter();}
 //                result = filter.testParallel();
                 break;
             case 4: 
+                System.out.println("Running Filter algo with Java lock");
                 filter = new FilterTest(Nthreads, false);
                  for ( int j = 0; j < iterations ; j++)
                 {result = filter.testParallel(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}
