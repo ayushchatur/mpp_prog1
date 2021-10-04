@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "select the algorithm of choice: \\n 1. Bakery Custom lock \\n 2. Bakery java lock \\n 3. Filter custom lock \\n 4. filter java lock"
+echo "select the algorithm of choice: \\n 1. Bakery Custom lock \\n 2. Filter lock \\n 3. Re-entrant lock \\n 4. Bakery with non atomic"
 
 read choice 
 

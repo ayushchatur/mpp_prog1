@@ -23,7 +23,7 @@ public class NewMain {
         int algo = 1 ;
         int Nthreads = 4;
 
-        int iterations = 1;
+        int iterations = 10;
         int success=0;
          
         if (args.length < 3)
@@ -90,7 +90,7 @@ public class NewMain {
 
                 bake = new RunClass(Nthreads);
                  for ( int j = 0; j < iterations ; j++)
-                {result = filter.testParallel(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); filter.reset_counter();}
+                {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); filter.reset_counter();}
 //                result = filter.testParallel();
                 break;
             case 4: 
