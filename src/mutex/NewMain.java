@@ -44,15 +44,15 @@ public class NewMain {
                 System.err.println("Error parsing arguments please provide them correctly defaulting to 1 (algo choice),4 threads ,1 type of test");
             }
         }
-           BakeryTest bake = null;
+           RunClass bake = null;
            FilterTest filter  = null;
            boolean result ;
            
           /***         
                 1   Bakery via Custom Lock <default:>
-                2   Bakery via Java Concurrent Lock
-                3   Filter via Custom Lock
-                4   Filter via Java Concurrent Lock
+                2   Filter Custom Lock
+                3   Re-entrant Lock 
+                4   Bakery via non atomic variables
           ***/
           
         System.out.format("Initating choice : %d with %d threads and %d iterations\n", algo,Nthreads,iterations);
@@ -63,36 +63,47 @@ public class NewMain {
           
             case 1: 
                 // true, implies to use our lock implmentation 
-                bake = new BakeryTest(Nthreads, true);
+                bake = new RunClass(Nthreads, true);
                 System.out.println("Running bakery algo with custom lock");
                 for ( int j = 0; j < iterations ; j++)
-                {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); bake.reset_counter();}
+                {
+                    result = bake.testParallel_custom();
+                    if (result) success++; 
+                    System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);
+                    bake.reset_counter();
+                }
                 break;
             case 2: 
-               System.out.println("Running bakery algo with Java lock");
-
-                bake = new BakeryTest(Nthreads, false);
+                 System.out.println("Running Filter algo with custom lock");
+                filter = new FilterTest(Nthreads);
                  for ( int j = 0; j < iterations ; j++)
-                {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}
+                {result = filter.testParallel();
+                if (result) success++;
+                System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);
+                filter.reset_counter();
+                }
+
                 break;
             case 3: 
                                 // true, implies to use our lock implmentation 
-                System.out.println("Running Filter algo with custom lock");
+                System.out.println("Running Lock implementation with reentrant lock");
 
-                filter = new FilterTest(Nthreads, true);
+                bake = new RunClass(Nthreads);
                  for ( int j = 0; j < iterations ; j++)
                 {result = filter.testParallel(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); filter.reset_counter();}
 //                result = filter.testParallel();
                 break;
             case 4: 
-                System.out.println("Running Filter algo with Java lock");
-                filter = new FilterTest(Nthreads, false);
-                 for ( int j = 0; j < iterations ; j++)
-                {result = filter.testParallel(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}
+                 System.out.println("Running bakery algo with Native int[]");
 
+                bake = new RunClass(Nthreads, false);
+                 for ( int j = 0; j < iterations ; j++)
+                {result = bake.testParallel_custom(); 
+                if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);bake.reset_counter();}
                 break;
+                
             default : 
-                bake = new BakeryTest(Nthreads, true);
+                bake = new RunClass(Nthreads, true);
                  for ( int j = 0; j < iterations ; j++)
                     {result = bake.testParallel_custom(); if (result) success++;System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result);}           
                 }

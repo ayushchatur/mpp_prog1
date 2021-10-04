@@ -14,6 +14,7 @@ package mutex;
 import java.util.concurrent.TimeUnit;
 import java.math.*;
 import java.util.concurrent.ThreadLocalRandom;   
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
@@ -36,22 +37,34 @@ class Bakery implements Lock {
       flag[i] = false;label[i]=0;
   }
   }
+  
+    
+  private int get_max(int[]  arr)
+  {
+      int max = Integer.MIN_VALUE;
+      
+      for(int i : arr)
+      {
+          if ( i > max)
+              max = i ;
+                      
+      }
+      return max;
+  }
+  
   public void lock() {
       //get thread id 
       int i = ThreadID.get();
       flag[i] = true;
       
-      int p =-1;
-      for ( int j=0;j<N;j++)
-          p = Math.max(p,label[j]);
-      label[i] = p +1;
+      label[i] = get_max(label) +1;
       
       
       for ( int k =0; k< N ; k ++)
       {
           while( k != i && flag[k] && 
-                  ((label[i] < label[k]) || 
-                  ((label[i] == label[k]) && (i < k)) )
+                  ((label[k] < label[i]) || 
+                  ((label[i] == label[k]) && (k < i)) )
                   )
                   {
                       // spin wait

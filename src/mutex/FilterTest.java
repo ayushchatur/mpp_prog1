@@ -24,24 +24,17 @@ public class FilterTest {
   
   Lock instance = new Filter(THREADS);
   
-  public FilterTest(int threads, boolean our_algo) {
+  public FilterTest(int threads) {
      // Check of non negative since java dont have unsigned
-        if(threads > 0)
-        {    this.THREADS= threads;
-         thread = new MyThread[this.THREADS];
-         this.PER_THREAD = COUNT / this.THREADS;
+         if(threads > 0)
+        { this.THREADS= threads;
+            
+        thread = new MyThread[this.THREADS];
+        this.PER_THREAD = COUNT / this.THREADS;
         }
-        
-    
-        // our_algo = true imples custom implementation of lock 
-        if( our_algo )
-        {
+     
             instance = new Filter(this.THREADS);
-        }
-        else 
-        {
-            instance = new FilterSys(this.THREADS);
-        }
+        
   }
   
   public void reset_counter()

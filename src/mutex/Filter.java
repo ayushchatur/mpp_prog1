@@ -1,3 +1,4 @@
+
 /*
  * Filter.java
  *
@@ -17,20 +18,22 @@ package mutex;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 
 class Filter implements Lock {
   
     int N;
-    int[] flags;
-    int[] victim;
+   volatile AtomicInteger[] flags;
+    volatile AtomicInteger[] victim;
     
     public Filter(int threads ) {
       this.N = threads;
-      this.flags = new int[N];
-      this.victim = new int[N];
+      this.flags = new AtomicInteger[N];
+      this.victim = new AtomicInteger[N];
         for (int i = 0; i < N; i++) {
-            this.victim[i] = 0;
+            this.victim[i] = new AtomicInteger();
+            this.flags[i] = new AtomicInteger();
         }
       
   }
@@ -38,8 +41,16 @@ class Filter implements Lock {
    int id = ThreadID.get();
       for (int i = 1  ; i < N; i++) {
           
-          this.flags[id] = i;
-          this.victim[i]  =  id;
+          this.flags[id].set(i);
+          this.victim[i].set(id);
+
+          for( int p=0;p<N;p++)
+          {
+            while( (p !=id ) && (victim[p].get() >= i && victim[i].get() == id))
+            {
+              //spin wait
+            } 
+          }
           
       }
    
@@ -49,7 +60,7 @@ class Filter implements Lock {
   public void unlock() {
       int id = ThreadID.get();
       
-      this.victim[id] = 0;
+      this.victim[id].set (0);
 
   }
   
@@ -70,5 +81,3 @@ class Filter implements Lock {
   }
   
 }
-
-

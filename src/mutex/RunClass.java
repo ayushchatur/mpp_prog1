@@ -10,21 +10,36 @@ package mutex;
 import mutex.Bakery;
 import mutex.ThreadID;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 /**
  * Crude & inadequate test of lock class.
  * @author Maurice Herlihy
  */
-public class BakeryTest{
+public class RunClass{
     // default 4 threads 
   private  int THREADS = 4;
-  private   int COUNT = 1024 * 128;
+  private   int COUNT = 1024;
   private   int PER_THREAD = COUNT / THREADS;
   Thread[] thread = null;
   int counter = 0;
   private int algo = 0;
   
   Lock instance ;
-    BakeryTest(int threads, boolean our_algo)
+  
+    RunClass(int threads)
+    {
+        // Check of non negative since java dont have unsigned
+        if(threads > 0)
+        { this.THREADS= threads;
+            
+        thread = new MyThread[this.THREADS];
+        this.PER_THREAD = COUNT / this.THREADS;
+        }
+         instance = new ReentrantLock();
+        
+    }
+    
+    RunClass(int threads, boolean our_algo)
     {
         // Check of non negative since java dont have unsigned
         if(threads > 0)
@@ -41,7 +56,7 @@ public class BakeryTest{
         }
         else 
         {
-            instance = new BakerySys(this.THREADS);
+            instance = new Bakery_atmc(this.THREADS);
         }
     }
     
@@ -59,7 +74,7 @@ public class BakeryTest{
     for (int i = 0; i < THREADS; i++) {
       thread[i].join();
     }
-      System.out.println(counter);
+      System.out.format("actual %d expected: %d" + System.lineSeparator() , counter, COUNT);
 //    assertEquals(counter, COUNT);
       
     return (counter == COUNT);
