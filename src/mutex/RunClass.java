@@ -99,7 +99,7 @@ public class RunClass{
           instance.unlock();
         }
         long timeF = System.nanoTime();
-//          System.out.println("time(ns) take by thread id: " + this.getName() + " is: " + (timeF - timS));
+          System.out.println("time(ns) take by thread id: " + this.getName() + " is: " + (timeF - timS));
       }
     }
   }
