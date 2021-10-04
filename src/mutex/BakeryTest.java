@@ -17,7 +17,7 @@ import java.util.concurrent.locks.Lock;
 public class BakeryTest{
     // default 4 threads 
   private  int THREADS = 4;
-  private   int COUNT = 1024;
+  private   int COUNT = 1024 * 128;
   private   int PER_THREAD = COUNT / THREADS;
   Thread[] thread = null;
   int counter = 0;
