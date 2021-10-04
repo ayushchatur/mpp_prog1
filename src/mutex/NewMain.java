@@ -37,7 +37,7 @@ public class NewMain {
             {
             algo = Integer.parseInt(args[0]);
             Nthreads = Integer.parseInt(args[1]);
-            iterations = Integer.parseInt(args[1]);
+            iterations = Integer.parseInt(args[2]);
             }
             catch (Exception ex)
             {
