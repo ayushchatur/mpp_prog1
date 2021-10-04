@@ -21,12 +21,12 @@ import java.util.concurrent.locks.Lock;
  * Lamport's Bakery lock (simplified)
  * @author Maurice Herlihy
  */
-class BakerySys implements Lock {
+class Bakery implements Lock {
     boolean[] flag;
     int N; 
     int[] label;
     
-  public BakerySys(int threads) {
+  public Bakery(int threads) {
   flag = new boolean[threads];
   this.N = threads;
   label = new int[threads];
