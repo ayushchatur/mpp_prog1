@@ -22,7 +22,7 @@ public class NewMain {
         try{
         int algo = 1 ;
         int Nthreads = 4;
-        int typeoftest = 1;
+
         int iterations = 1;
         int success=0;
          
@@ -37,8 +37,7 @@ public class NewMain {
             {
             algo = Integer.parseInt(args[0]);
             Nthreads = Integer.parseInt(args[1]);
-            typeoftest = Integer.parseInt(args[2]);
-            iterations = Integer.parseInt(args[3]);
+            iterations = Integer.parseInt(args[1]);
             }
             catch (Exception ex)
             {
