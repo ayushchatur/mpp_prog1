@@ -17,15 +17,14 @@ package mutex;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 
-class Filter implements Lock {
+class FilterSys implements Lock {
   
     int N;
     int[] flags;
     int[] victim;
     
-    public Filter(int threads ) {
+    public FilterSys(int threads ) {
       this.N = threads;
       this.flags = new int[N];
       this.victim = new int[N];
