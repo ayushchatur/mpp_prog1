@@ -33,7 +33,7 @@ Choice of Algorithm:
  No of threads: Integer value <default: 4> 
  
 
-> for details on custom test refer assignment report.
+
 
 ### Using Taskset
 
