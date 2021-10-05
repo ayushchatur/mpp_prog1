@@ -6,7 +6,13 @@ after cloning the git repository follow these steps
 run: 
 
 ``` sh 
+
+mkdir -p test 
+
 cd test 
+
+git clone git@github.com:ayushchatur/mpp_prog1.git
+cd mpp_prog1
 
 ant -f . -Dnb.internal.action.name=rebuild clean jar
 
