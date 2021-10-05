@@ -52,11 +52,11 @@ public class RunClass{
         // our_algo = true imples custom implementation of lock 
         if( our_algo )
         {
-            instance = new Bakery(this.THREADS);
+            instance = new Bakery_atmc(this.THREADS);
         }
         else 
         {
-            instance = new Bakery_atmc(this.THREADS);
+            instance = new Bakery(this.THREADS);
         }
     }
     

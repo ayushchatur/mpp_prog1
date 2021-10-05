@@ -85,13 +85,13 @@ public class NewMain {
 
                 break;
             case 3: 
-                                // true, implies to use our lock implmentation 
+                               
                 System.out.println("Running Lock implementation with reentrant lock");
 
                 bake = new RunClass(Nthreads);
                  for ( int j = 0; j < iterations ; j++)
                 {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); filter.reset_counter();}
-//                result = filter.testParallel();
+
                 break;
             case 4: 
                  System.out.println("Running bakery algo with Native int[]");
