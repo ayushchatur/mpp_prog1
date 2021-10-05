@@ -1,6 +1,8 @@
 # Running via command line
 
-> Target build JAVA 8
+> Target build JAVA 8 , rlogin has java 11. but we did not find any issue in building. If the issues persist please use JDK 8 .
+
+
 > Assuming you have cloned it to a directory named **test**
 after cloning the git repository follow these steps 
 
