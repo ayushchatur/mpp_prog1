@@ -41,6 +41,16 @@ the syntax for running it are also similar:
 after cloning the git repository follow these steps 
 ``` sh 
 cd test 
+
+mkdir -p test 
+
+cd test 
+
+git clone git@github.com:ayushchatur/mpp_prog1.git
+cd mpp_prog1
+
+ant -f . -Dnb.internal.action.name=rebuild clean jar
+
 sh run.sh <Choice of Algorithm> <No of threads> <iterations> 
 ``` 
 The script outputs the task affinity allocated before running the jar file
