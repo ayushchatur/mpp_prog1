@@ -16,13 +16,13 @@ import java.util.concurrent.locks.Lock;
  */
 public class FilterTest {
     // default 4 threads 
-  private  int THREADS = 4;
+  private  int THREADS ;
   private   int COUNT = 1024 ;
-  private   int PER_THREAD = 0;
+  private   int PER_THREAD ;
   Thread[] thread = null ;
   int counter = 0;
   
-  Lock instance = new Filter(THREADS);
+  Lock instance = null;
   
   public FilterTest(int threads) {
      // Check of non negative since java dont have unsigned
@@ -31,9 +31,8 @@ public class FilterTest {
             
         thread = new MyThread[this.THREADS];
         this.PER_THREAD = COUNT / this.THREADS;
+          instance = new Filter(this.THREADS);
         }
-     
-            instance = new Filter(this.THREADS);
         
   }
   
@@ -44,8 +43,11 @@ public class FilterTest {
   
   public boolean testParallel() throws Exception {
     ThreadID.reset();
+    this.reset_counter();
     for (int i = 0; i < THREADS; i++) {
       thread[i] = new MyThread();
+       StringBuilder s = new StringBuilder().append(i);
+      thread[i].setName(s.toString());
     }
     for (int i = 0; i < THREADS; i++) {
       thread[i].start();
@@ -62,12 +64,15 @@ public class FilterTest {
   class MyThread extends Thread {
     public void run() {
       for (int i = 0; i < PER_THREAD; i++) {
+          long timS = System.nanoTime();
         instance.lock();
         try {
           counter = counter + 1;
         } finally {
           instance.unlock();
         }
+        long timeF = System.nanoTime();
+      System.out.println("time(ns) take by thread id: " + this.getName() + " is: " + (timeF - timS));
       }
     }
   }
