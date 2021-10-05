@@ -52,11 +52,11 @@ public class RunClass{
         // our_algo = true imples custom implementation of lock 
         if( our_algo )
         {
-            instance = new Bakery(this.THREADS);
+            instance = new Bakery_atmc(this.THREADS);
         }
         else 
         {
-            instance = new Bakery_atmc(this.THREADS);
+            instance = new Bakery(this.THREADS);
         }
     }
     
@@ -99,7 +99,7 @@ public class RunClass{
           instance.unlock();
         }
         long timeF = System.nanoTime();
-//          System.out.println("time(ns) take by thread id: " + this.getName() + " is: " + (timeF - timS));
+          System.out.println("time(ns) take by thread id: " + this.getName() + " is: " + (timeF - timS));
       }
     }
   }
