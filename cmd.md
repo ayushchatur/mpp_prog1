@@ -1,5 +1,6 @@
 # Running via command line
 
+> Target build JAVA 8
 > Assuming you have cloned it to a directory named **test**
 after cloning the git repository follow these steps 
 
