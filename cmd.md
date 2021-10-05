@@ -1,12 +1,21 @@
 # Running via command line
 
+> Target build JAVA 8 , rlogin has java 11. but we did not find any issue in building. If the issues persist please use JDK 8 .
+
+
 > Assuming you have cloned it to a directory named **test**
 after cloning the git repository follow these steps 
 
 run: 
 
 ``` sh 
+
+mkdir -p test 
+
 cd test 
+
+git clone git@github.com:ayushchatur/mpp_prog1.git
+cd mpp_prog1
 
 ant -f . -Dnb.internal.action.name=rebuild clean jar
 
@@ -35,6 +44,16 @@ the syntax for running it are also similar:
 after cloning the git repository follow these steps 
 ``` sh 
 cd test 
+
+mkdir -p test 
+
+cd test 
+
+git clone git@github.com:ayushchatur/mpp_prog1.git
+cd mpp_prog1
+
+ant -f . -Dnb.internal.action.name=rebuild clean jar
+
 sh run.sh <Choice of Algorithm> <No of threads> <iterations> 
 ``` 
 The script outputs the task affinity allocated before running the jar file
