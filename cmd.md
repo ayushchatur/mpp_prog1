@@ -37,7 +37,7 @@ Choice of Algorithm:
 
 ### Using Taskset
 
-In order to faciliate runs with taskset we are providing [run.sh](./run.sh) bash file. 
+In order to faciliate runs with taskset we are providing [taskset.sh](./taskset.sh) bash file. 
 the syntax for running it are also similar: 
 
 
