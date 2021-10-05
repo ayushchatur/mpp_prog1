@@ -90,7 +90,7 @@ public class NewMain {
 
                 bake = new RunClass(Nthreads);
                  for ( int j = 0; j < iterations ; j++)
-                {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); filter.reset_counter();}
+                {result = bake.testParallel_custom(); if (result) success++; System.out.println("~~~~~~~~~~~~~~~~iteration: " + j + " result correctness: " + result); bake.reset_counter();}
 
                 break;
             case 4: 
