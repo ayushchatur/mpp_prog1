@@ -18,7 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class RunClass{
     // default 4 threads 
   private  int THREADS = 4;
-  private   int COUNT = 1024;
+  private   int COUNT = 107520   ;
   private   int PER_THREAD = COUNT / THREADS;
   Thread[] thread = null;
   int counter = 0;

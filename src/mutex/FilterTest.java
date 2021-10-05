@@ -17,7 +17,7 @@ import java.util.concurrent.locks.Lock;
 public class FilterTest {
     // default 4 threads 
   private  int THREADS ;
-  private   int COUNT = 1024 ;
+  private   int COUNT = 107520    ;
   private   int PER_THREAD ;
   Thread[] thread = null ;
   int counter = 0;
