@@ -56,11 +56,14 @@ ant -f . -Dnb.internal.action.name=rebuild clean jar
 
 sh taskset.sh 
 
-> please change the range in for statement (instead of 4 use number of threads that you entered in taskset)  
+
 for i in {0..4}; do echo "time by thread ${i}: "; cat result.out | grep "by thread id: ${i} " | awk '{total += $8;count++} END {print
  total/count}'; done ; cat result.out | grep "correct"
  
 ``` 
+
+> please change the range in for statement above(instead of 4 use number of threads that you entered in taskset)  
+> 
 The script outputs the task affinity allocated before running the jar file
 
 
